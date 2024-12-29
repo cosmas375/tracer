@@ -1,6 +1,4 @@
-extern void ITM_SendChar(char ch);
-
-typedef char const *const SWO_Logger_Log_Level_Format;
+#include <stdint.h>
 
 typedef enum
 {
@@ -10,8 +8,14 @@ typedef enum
     SWO_LOGGER_LOG_LEVEL_DEBUG,
 } SWO_Logger_Log_Level;
 
-void swo_logger_init(SWO_Logger_Log_Level log_level);
-void swo_logger_log_error(SWO_Logger_Log_Level_Format format, ...);
-void swo_logger_log_warning(SWO_Logger_Log_Level_Format format, ...);
-void swo_logger_log_info(SWO_Logger_Log_Level_Format format, ...);
-void swo_logger_log_debug(SWO_Logger_Log_Level_Format format, ...);
+typedef struct
+{
+    SWO_Logger_Log_Level log_level;
+    uint32_t (*send_char)(uint32_t);
+} SWO_Logger_Config;
+
+void swo_logger_init(const SWO_Logger_Config* config);
+void swo_logger_log_error(char const *const format, ...);
+void swo_logger_log_warning(char const *const format, ...);
+void swo_logger_log_info(char const *const format, ...);
+void swo_logger_log_debug(char const *const format, ...);
