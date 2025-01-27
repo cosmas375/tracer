@@ -1,5 +1,8 @@
 #include <stdint.h>
 
+#ifndef SWO_LOGGER_H_
+#define SWO_LOGGER_H_
+
 typedef enum
 {
     SWO_LOGGER_LOG_LEVEL_ERROR,
@@ -19,3 +22,5 @@ void swo_logger_log_error(char const *const format, ...);
 void swo_logger_log_warning(char const *const format, ...);
 void swo_logger_log_info(char const *const format, ...);
 void swo_logger_log_debug(char const *const format, ...);
+
+#endif
